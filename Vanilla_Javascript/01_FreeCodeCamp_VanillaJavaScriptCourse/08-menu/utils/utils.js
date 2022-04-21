@@ -1,0 +1,104 @@
+export function getRandomNumber(length) {
+    return Math.floor(Math.random() * length);
+}
+
+export function getParameter(name, urlString = window.location.href) {
+    console.log('hihi');
+    var url = new URL(urlString);
+
+    return url.searchParams.get(name);
+}
+
+export function getAllParameters(urlString = window.location.href) {
+    var url = new URL(urlString);
+
+    return new Proxy(new URLSearchParams(url.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+    });
+}
+
+export function getFragment(urlString = window.location.href) {
+    var url = new URL(urlString);
+
+    return url.hash.substring(1);
+}
+
+export function getAllUrlParams(url) {
+    // nguồn: https://www.sitepoint.com/get-url-parameters-with-javascript/
+
+    // get query string from url (optional) or window
+    var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
+
+    // we'll store the parameters here
+    var obj = {};
+
+    // if query string exists
+    if (queryString) {
+
+        // stuff after # is not part of query string, so get rid of it
+        queryString = queryString.split('#')[0];
+
+        // split our query string into its component parts
+        var arr = queryString.split('&');
+
+        for (var i = 0; i < arr.length; i++) {
+            // separate the keys and the values
+            var a = arr[i].split('=');
+
+            // set parameter name and value (use 'true' if empty)
+            var paramName = a[0];
+            var paramValue = typeof (a[1]) === 'undefined' ? true : a[1];
+
+            // (optional) keep case consistent
+            paramName = paramName.toLowerCase();
+            if (typeof paramValue === 'string') paramValue = paramValue.toLowerCase();
+
+            // if the paramName ends with square brackets, e.g. colors[] or colors[2]
+            if (paramName.match(/\[(\d+)?\]$/)) {
+
+                // create key if it doesn't exist
+                var key = paramName.replace(/\[(\d+)?\]/, '');
+                if (!obj[key]) obj[key] = [];
+
+                // if it's an indexed array e.g. colors[2]
+                if (paramName.match(/\[\d+\]$/)) {
+                    // get the index value and add the entry at the appropriate position
+                    var index = /\[(\d+)\]/.exec(paramName)[1];
+                    obj[key][index] = paramValue;
+                } else {
+                    // otherwise add the value to the end of the array
+                    obj[key].push(paramValue);
+                }
+            } else {
+                // we're dealing with a string
+                if (!obj[paramName]) {
+                    // if it doesn't exist, create property
+                    obj[paramName] = paramValue;
+                } else if (obj[paramName] && typeof obj[paramName] === 'string') {
+                    // if property does exist and it's a string, convert it to an array
+                    obj[paramName] = [obj[paramName]];
+                    obj[paramName].push(paramValue);
+                } else {
+                    // otherwise add the property
+                    obj[paramName].push(paramValue);
+                }
+            }
+        }
+    }
+
+    return obj;
+}
+
+export function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export function capitalizeString(string) {
+    const arr = string.split(" ");
+
+    for (var i = 0; i < arr.length; i++) {
+        arr[i] = capitalizeFirstLetter(arr[i]);
+    }
+
+    return arr.join(" ");
+}
