@@ -1,0 +1,5 @@
+Link:
+web: https://www.freecodecamp.org/news/javascript-projects-for-beginners
+video: https://www.youtube.com/watch?v=3PHXvlpOkf4
+code: https://github.com/john-smilga/javascript-basic-projects
+demo: https://www.vanillajavascriptprojects.com
