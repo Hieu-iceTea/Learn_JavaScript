@@ -1,3 +1,5 @@
+// nguồn: https://academind.com/tutorials/web-components-introduction
+
 import './web-components/search-result.js';
 
 const nameInput = document.getElementById('name-input');
