@@ -1,8 +1,16 @@
 export function buildHtmlCategory(item) {
+    // let template =
+    //     `<button type="button" class="filter-btn" data-category=${item}>
+    //         ${item}
+    //     </button>`;
+
     let template =
-        `<button type="button" class="filter-btn" data-category=${item}>
-            ${item}
-        </button>`;
+        `
+        <category-web-compoent 
+            name="${item}"
+            >
+        </category-web-compoent>
+        `;
 
     return template;
 }

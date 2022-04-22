@@ -3,7 +3,8 @@ import { buildHtmlMenu, buildHtmlMenus } from "./components/menu-item.js";
 import { buildHtmlCategory, buildHtmlCategories } from "./components/category.js";
 import { renderHtml, renderHtmls } from "./utils/render-html.js";
 import { processAjaxData, onpopstateHandle } from "./utils/history-state.js";
-import { getParameter, capitalizeString } from "./utils/utils.js"
+import { getParameter, capitalizeString } from "./utils/utils.js";
+import { CategoryWebCompoent } from "./components/web-components/category-web-compoent.js";
 
 let dataMenus = null;
 let dataCategories = null;
@@ -17,6 +18,8 @@ window.addEventListener("DOMContentLoaded", mounted); // display all items when 
 // mounted(); // render hiển thị ngay lập tức, kể cả khi page chưa được load
 
 function mounted() {
+    customElements.define("category-web-compoent", CategoryWebCompoent);
+    
     currentCategory = getParameter('category');
     currentCategory === null ?
         dataMenus = getDataMenus() :
