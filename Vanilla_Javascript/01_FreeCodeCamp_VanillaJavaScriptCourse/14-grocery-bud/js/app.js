@@ -43,6 +43,11 @@ function fetchData() {
 }
 
 function submit(e) {
+    if (groceryForm.inputGrocery == '') {
+        alert.alertDanger('Please enter value');
+        return;
+    }
+
     if (isEdit) {
         submitEdit(e);
     } else {
